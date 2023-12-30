@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+{% load static %}
+<script type="text/javascript" src="{% static 'js/liste.js' %}"></script>
+<link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
+</head>
+<body>
+<label for="serveur">Serveur :</label>
+
+<select	name="serveur" id="serveur" onchange="showMessageForServeur();">
+{% for serveur in serveurs %}
+	<option value="{{ serveur.id }}" {% if forloop.counter0 == 0 %}selected="true"{% endif %}>{{ serveur.host }} - {{ serveur.user }}</option>
+{% endfor %}
+</select>
+<table id="messagesTable" class="display" style="width:100%">
+	 <thead>
+		<tr>
+			<th><input type="checkbox" id="checkAllMsgs" name="messagesAll" onclick="checkAllMsgs();" /></th>
+			<th>From</th>
+			<th>To</th>
+			<th>Subject</th>
+			<th>Date</th>
+			<th>Flags</th>
+			<th>headers</th>
+		</tr>
+	 </thead>
+	<tbody>
+		{% for message in messages %}
+		<tr>
+			<td><input type="checkbox" id="msg{{message.uid}}" name="messagesChck" value="{{message.uid}}"/></td>
+			<td>{{ message.from_ }}</td>
+			<td>{{ message.to }}</td>
+			<td>{{ message.subject }}</td>
+			<td>{{ message.date }}</td>
+			<td>{{ message.flags }}</td>
+			<td>{{ message.headers }}</td>
+		</tr>
+		{% endfor %}
+	<tbody>
+</table>
+</body>
+</html>

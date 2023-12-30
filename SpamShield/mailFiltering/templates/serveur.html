@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+{% load static %}
+<script type="text/javascript" src="{% static 'js/serveurs.js' %}"></script>
+<link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
+</head>
+<body>
+<form action="{% url 'saveServeur' serveur.id %}" method="post">
+{% csrf_token %}
+<fieldset>
+    <legend><h1>{{ serveur.host }} - {{ serveur.user }}</h1></legend>
+    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+	<label for="host">Host</label><br>
+    <input type="text" name="host" id="host" value="{{ serveur.host }}">
+    <label for="user">Host</label><br>
+    <input type="text" name="user" id="user" value="{{ serveur.user }}">
+	<label for="password">Password</label><br>
+    <input type="text" name="password" id="password" value="">
+</fieldset>
+<input type="submit" value="Save">
+</form>
+</body>
+</html>

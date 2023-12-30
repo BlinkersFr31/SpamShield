@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+{% load static %}
+<script type="text/javascript" src="{% static 'js/serveurs.js' %}"></script>
+<link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
+</head>
+<body>
+<table id="serveursTable" class="display" style="width:100%">
+	 <thead>
+		<tr>
+			<th>host</th>
+			<th>User</th>
+			<th>Edit</th>
+		</tr>
+	 </thead>
+	<tbody>
+		{% for serveur in serveurs %}
+		<tr id="serveur{{ serveur.id }}">
+			<td>{{ serveur.host }}</td>
+			<td>{{ serveur.user }}</td>
+			<td><a href="serveur/{{ serveur.id}}">Edit</a></td>
+		</tr>
+		{% endfor %}
+	<tbody>
+</table>
+</body>
+</html>

@@ -1,0 +1,8 @@
+django
+#sqlite
+#aiospamc
+imap-tools
+checkdmarc
+authheaders
+des
+django-task
