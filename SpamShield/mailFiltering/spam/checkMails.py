@@ -73,13 +73,11 @@ class checkMailJob(Job):
     @staticmethod
     def execute(job, task):
         serveur = task.serveur
-        print('new task')
         with MailBox(serveur.host).login(serveur.user, serveur.password) as mailbox:
             while True:
                 responses = mailbox.idle.wait(timeout=60)
                 if responses:
-                    print('new mail check')
                     for msg in mailbox.fetch(AND(seen=False), mark_seen=False, reverse=True, bulk=True):
                         checkMail(msg, mailbox)
                 else:
-                    print('no updates in 60 sec')
+                    logger.info('no updates in 60 sec')
