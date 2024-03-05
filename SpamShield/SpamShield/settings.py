@@ -27,6 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['allowed.example.test']
 
+CSRF_TRUSTED_ORIGINS = ['allowed.example.test']
+
 
 # Application definition
 
