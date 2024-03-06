@@ -16,6 +16,16 @@
 	<option value="{{ serveur.id }}" {% if forloop.counter0 == 0 %}selected="true"{% endif %}>{{ serveur.host }} - {{ serveur.user }}</option>
 {% endfor %}
 </select>
+<label for="action">Action :</label>
+<select	name="action" id="action">
+	<option value="none"></option>
+	<option value="delete">delete</option>
+	<option value="spam">spam</option>
+	<option value="spam">whitelist</option>
+	<option value="domainBlock">blocage domain</option>
+	<option value="domainBlock">whitelist domain</option>
+</select>
+<button id="btnAction" onClick="actionForServeur();">Valider</button>
 <table id="messagesTable" class="display" style="width:100%">
 	 <thead>
 		<tr>
