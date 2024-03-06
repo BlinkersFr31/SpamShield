@@ -13,7 +13,7 @@ import logging
 logger = logging.getLogger("django")
 
 def getMails(serveur):
-    logger.debug("getMails " + serveur)
+    logger.debug("getMails " + str(serveur))
     return getMailsServeur(serveur)
 
 
@@ -49,13 +49,13 @@ def listemails(request, serveur_id):
         )
 
 def gestionMails(request, serveur_id):
-    logger.debug("gestionMails " + request)
+    logger.debug("gestionMails " + str(request))
     action = request.POST["action"]
-    logger.debug("action " + action)
+    logger.debug("action " + str(action))
     mailsUID = request.POST["mailsUID"]
-    logger.mailsUID("mailsUID " + mailsUID)
+    logger.mailsUID("mailsUID " + str(mailsUID))
     domains = request.POST["domains"]
-    logger.debug("domains " + domains)
+    logger.debug("domains " + str(domains))
         
 def serveurs(request):
     serveurs = Serveur.objects.all()
