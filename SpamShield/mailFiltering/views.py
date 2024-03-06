@@ -6,23 +6,15 @@ from imap_tools import MailBox, AND, OR, MailMessageFlags
 from .models import Domain, Serveur
 
 from .spam.checkMails import checkMail
+from .spam.gestion import getMailsServeur
+
+import logging
+
+logger = logging.getLogger("django")
 
 def getMails(serveur):
-    messages = []
-    with MailBox(serveur.host).login(serveur.user, serveur.password, initial_folder='junk') as mailbox:
-        for msg in mailbox.fetch(AND(keyword="SPAM_BLOCKLIST"), mark_seen=False, reverse=True, bulk=True):
-            messages.append(msg)
-        for msg in mailbox.fetch(AND(keyword="SPAM_DKIM"), mark_seen=False, reverse=True, bulk=True):
-            messages.append(msg)
-        for msg in mailbox.fetch(AND(keyword="SPAM_DKIM_DIFF"), mark_seen=False, reverse=True, bulk=True):
-            messages.append(msg)
-        for msg in mailbox.fetch(AND(keyword="SPAM_DOMAIN_DIFF"), mark_seen=False, reverse=True, bulk=True):
-            messages.append(msg)
-    with MailBox(serveur.host).login(serveur.user, serveur.password) as mailbox:
-        for msg in mailbox.fetch(AND(seen=False), mark_seen=False, reverse=True, bulk=True):
-            checkMail(msg, mailbox)
-            messages.append(msg)
-    return messages
+    logger.debug("getMails " + serveur)
+    return getMailsServeur(serveur)
 
 
 def index(request):
@@ -55,6 +47,15 @@ def listemails(request, serveur_id):
                 "serveur": serveur.id,
             },
         )
+
+def gestionMails(request, serveur_id):
+    logger.debug("gestionMails " + request)
+    action = request.POST["action"]
+    logger.debug("action " + action)
+    mailsUID = request.POST["mailsUID"]
+    logger.mailsUID("mailsUID " + mailsUID)
+    domains = request.POST["domains"]
+    logger.debug("domains " + domains)
         
 def serveurs(request):
     serveurs = Serveur.objects.all()
