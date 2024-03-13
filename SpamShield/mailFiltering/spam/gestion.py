@@ -2,6 +2,7 @@ from imap_tools import MailBox, AND, MailMessageFlags
 
 import logging
 from mailFiltering.models import Domain
+from .checkMails import checkMail
 
 logger = logging.getLogger("django")
 
