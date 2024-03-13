@@ -9,7 +9,7 @@ RUN apk add dos2unix
 RUN apk add git
 WORKDIR /
 #ADD "https://api.github.com/repos/BlinkersFr31/SpamShield/commits?per_page=1" latest_commit
-#RUN git clone https://github.com/BlinkersFr31/SpamShield.git
+RUN git clone https://github.com/BlinkersFr31/SpamShield.git
 RUN pip install --user -r SpamShield/requirements.txt
 RUN sed -i "s/allowed.example.test/spamshield.s.brondino.fr/g" SpamShield/SpamShield/SpamShield/settings.py
 WORKDIR /SpamShield/SpamShield
