@@ -17,8 +17,22 @@ jobs:
     #- name: Build the Docker image
     #  run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
     # Output build artifacts to /github/workspace on the container.
-    - name: Containerized Build
-      uses: ./.github/actions
+    #- name: Containerized Build
+    #  uses: ./.github/actions
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Build and push
+      uses: docker/build-push-action@v5
+      with:
+        context: .
+        platforms: linux/amd64,linux/arm64
+        push: true
+        tags: |
+          user/app:latest
+          user/app:1.0.0
+          ghcr.io/user/app:latest
+          ghcr.io/user/app:1.0.0 
 
     - name: Upload Build Artifacts
       uses: actions/upload-artifact@v4
