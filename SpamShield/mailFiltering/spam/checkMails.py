@@ -47,16 +47,20 @@ def checkMail(msg, mailbox) :
         
         if "dkim-signature" in msg.headers :
             dkim = msg.headers["dkim-signature"]
+            isspamdkim = True
             for dv in dkim:
-                if dv.find("d="):
+                if dv.find("d=") and isspamdkim:
                     logger.debug(dv)
                     dkimdomain = dv.split("d=")[1].split(";")[0]
                     logger.debug(dkimdomain)
                     if dkimdomain.find(domain) == -1:
-                        fl = ('SPAM_DKIM_DIFF',)
-                        flags = flags + fl
-                        #logger.info("Msg : " + msg.from_ + " - " msg.to + " - " + msg.subject)
                         logger.info("Pretend être pour le domaine " + domain + " qui a un DKIM pour un domaine different")
+                    else:
+                        isspamdkim = False
+                        break
+            if isspamdkim:
+                fl = ('SPAM_DKIM_DIFF',)
+                flags = flags + fl
             
         if msg.from_.find(domain) == -1 :
             fl = ('SPAM_DOMAIN_DIFF',)
