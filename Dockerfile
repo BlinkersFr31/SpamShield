@@ -18,7 +18,7 @@ RUN dos2unix entrypoint.sh
 RUN chmod +x entrypoint.sh
 
 FROM python:3.7-alpine
-COPY --from=builder /SpamShield-main /opt
+COPY --from=builder /SpamShield /opt
 COPY --from=builder /root/.local /root/.local
 ENV PATH=/root/.local/bin:$PATH
 EXPOSE 8000
