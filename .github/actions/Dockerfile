@@ -7,7 +7,9 @@ RUN apk add gcc
 RUN apk add libffi-dev
 RUN apk add dos2unix
 RUN apk add git
+RUN ls -rtl
 WORKDIR /
+RUN ls -rtl
 #ADD "https://api.github.com/repos/BlinkersFr31/SpamShield/commits?per_page=1" latest_commit
 #ADD "https://www.random.org/cgi-bin/randbyte?nbytes=10&format=h" skipcache
 #RUN git clone https://github.com/BlinkersFr31/SpamShield.git
