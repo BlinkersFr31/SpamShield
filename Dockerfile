@@ -13,7 +13,7 @@ RUN git clone https://github.com/BlinkersFr31/SpamShield.git
 RUN pip install --user -r SpamShield/requirements.txt
 RUN sed -i "s/allowed.example.test/spamshield.s.brondino.fr/g" SpamShield/SpamShield/SpamShield/settings.py
 WORKDIR /SpamShield/SpamShield
-#RUN mkdir data
+RUN mkdir data
 RUN dos2unix entrypoint.sh
 RUN chmod +x entrypoint.sh
 
