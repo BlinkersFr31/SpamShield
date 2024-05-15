@@ -1,5 +1,5 @@
 django
-#sqlite
+sqlite
 #aiospamc
 imap-tools
 checkdmarc
